@@ -46,6 +46,7 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button5 = new System.Windows.Forms.Button();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -57,6 +58,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -64,6 +66,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.textBox8);
             this.panel2.Controls.Add(this.label12);
             this.panel2.Controls.Add(this.button4);
@@ -88,7 +91,7 @@
             this.textBox8.Multiline = true;
             this.textBox8.Name = "textBox8";
             this.textBox8.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox8.Size = new System.Drawing.Size(892, 292);
+            this.textBox8.Size = new System.Drawing.Size(892, 272);
             this.textBox8.TabIndex = 18;
             // 
             // label12
@@ -232,6 +235,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.textBox9);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.textBox3);
@@ -248,6 +252,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(978, 83);
             this.panel1.TabIndex = 14;
+            // 
+            // button5
+            // 
+            this.button5.Enabled = false;
+            this.button5.Location = new System.Drawing.Point(833, 39);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(140, 28);
+            this.button5.TabIndex = 12;
+            this.button5.Text = "关闭";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // textBox9
             // 
@@ -295,7 +310,7 @@
             // button2
             // 
             this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(726, 11);
+            this.button2.Location = new System.Drawing.Point(683, 9);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(91, 28);
             this.button2.TabIndex = 5;
@@ -305,7 +320,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(629, 11);
+            this.button1.Location = new System.Drawing.Point(586, 9);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(91, 28);
             this.button1.TabIndex = 4;
@@ -346,6 +361,15 @@
             this.label1.Size = new System.Drawing.Size(56, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Ip地址：";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(59, 492);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(32, 17);
+            this.label11.TabIndex = 20;
+            this.label11.Text = "消息";
             // 
             // FormComplexNet
             // 
@@ -405,5 +429,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label11;
     }
 }

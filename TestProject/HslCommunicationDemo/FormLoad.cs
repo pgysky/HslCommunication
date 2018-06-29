@@ -94,7 +94,7 @@ namespace HslCommunicationDemo
         {
             try
             {
-                System.Diagnostics.Process.Start( linkLabel2.Text );
+                System.Diagnostics.Process.Start( linkLabel3.Text );
             }
             catch (Exception ex)
             {
@@ -241,6 +241,66 @@ namespace HslCommunicationDemo
         private void FormLoad_Load( object sender, EventArgs e )
         {
             label3.Text = "库版本：" + HslCommunication.BasicFramework.SoftBasic.FrameworkVersion.ToString( );
+        }
+
+        private void button20_Click( object sender, EventArgs e )
+        {
+            Hide( );
+            using (FormPieChart form = new FormPieChart( ))
+            {
+                form.ShowDialog( );
+            }
+            Show( );
+        }
+
+        private void button21_Click( object sender, EventArgs e )
+        {
+            Hide( );
+            using (FormModbusRtu form = new FormModbusRtu( ))
+            {
+                form.ShowDialog( );
+            }
+            Show( );
+        }
+
+        private void button22_Click( object sender, EventArgs e )
+        {
+            Hide( );
+            using (FormPushNet form = new FormPushNet( ))
+            {
+                form.ShowDialog( );
+            }
+            Show( );
+        }
+
+        private void button23_Click( object sender, EventArgs e )
+        {
+            Hide( );
+            using (Robot.FormEfort form = new Robot.FormEfort( ))
+            {
+                form.ShowDialog( );
+            }
+            Show( );
+        }
+
+        private void button24_Click( object sender, EventArgs e )
+        {
+            Hide( );
+            using (FormSerialDebug form = new FormSerialDebug( ))
+            {
+                form.ShowDialog( );
+            }
+            Show( );
+        }
+
+        private void button25_Click( object sender, EventArgs e )
+        {
+            Hide( );
+            using (Algorithms.FourierTransform form = new Algorithms.FourierTransform( ))
+            {
+                form.ShowDialog( );
+            }
+            Show( );
         }
     }
 }

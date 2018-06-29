@@ -23,6 +23,7 @@ namespace HslCommunicationDemo
         {
             button2.Enabled = false;
             textBox3.Text = Guid.Empty.ToString( );
+            button5.Enabled = false;
         }
 
 
@@ -53,6 +54,7 @@ namespace HslCommunicationDemo
                 complexClient.Token = new Guid( textBox3.Text );
                 complexClient.AcceptString += ComplexClient_AcceptString;
                 complexClient.AcceptByte += ComplexClient_AcceptByte;
+                complexClient.MessageAlerts += ComplexClient_MessageAlerts;
                 complexClient.ClientStart( );
 
                 button1.Enabled = false;
@@ -63,6 +65,17 @@ namespace HslCommunicationDemo
             {
                 HslCommunication.BasicFramework.SoftBasic.ShowExceptionMessage( ex );
             }
+        }
+
+        private void ComplexClient_MessageAlerts( string text )
+        {
+            if (InvokeRequired)
+            {
+                Invoke( new Action<string>( ComplexClient_MessageAlerts ), text );
+                return;
+            }
+
+            label11.Text =  text;
         }
 
         private void ComplexClient_AcceptByte( HslCommunication.Core.Net.AppSession session, NetHandle handle, byte[] data )
@@ -130,11 +143,14 @@ namespace HslCommunicationDemo
             thread.IsBackground = true;
             thread.Start( );
             button6.Enabled = false;
+            button5.Enabled = true;
         }
+
+        private System.Threading.AutoResetEvent autoResetWait = new System.Threading.AutoResetEvent( false );
 
         private void ServerPressureTest( )
         {
-            NetComplexClient[] netComplices = new NetComplexClient[1000];
+            NetComplexClient[] netComplices = new NetComplexClient[100];
             for (int i = 0; i < 100; i++)
             {
                 netComplices[i] = new NetComplexClient( );
@@ -145,17 +161,21 @@ namespace HslCommunicationDemo
 
             // 等待连接完成
             System.Threading.Thread.Sleep( 2000 );
+            int index = 0;
 
-            for (int j = 0; j < 1000; j++)
+            for (int j = 0; j < 100; j++)
             {
                 for (int i = 0; i < 100; i++)
                 {
-                    netComplices[i].Send( 1, "测试消息" + (i + 1) );
+                    netComplices[i].Send( 1, "测试消息" + (index++) );
                 }
             }
 
+            // 等待所有的都发送完成
+            // System.Threading.Thread.Sleep( 2000 );
+            autoResetWait.WaitOne( );
 
-            System.Threading.Thread.Sleep( 2000 );
+
             for (int i = 0; i < 100; i++)
             {
                 netComplices[i].ClientClose( );
@@ -168,5 +188,10 @@ namespace HslCommunicationDemo
              } ) );
         }
 
+        private void button5_Click( object sender, EventArgs e )
+        {
+            autoResetWait.Set( );
+            button5.Enabled = false;
+        }
     }
 }

@@ -29,6 +29,7 @@
         private void InitializeComponent( )
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.textBox15 = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -61,6 +62,7 @@
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.button14 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
@@ -77,6 +79,7 @@
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.button_read_string = new System.Windows.Forms.Button();
             this.button_read_double = new System.Windows.Forms.Button();
@@ -98,8 +101,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -114,6 +117,8 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.checkBox3);
+            this.panel1.Controls.Add(this.checkBox2);
             this.panel1.Controls.Add(this.checkBox1);
             this.panel1.Controls.Add(this.textBox15);
             this.panel1.Controls.Add(this.label21);
@@ -129,18 +134,30 @@
             this.panel1.Size = new System.Drawing.Size(978, 54);
             this.panel1.TabIndex = 0;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(447, 16);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(106, 21);
+            this.checkBox1.TabIndex = 9;
+            this.checkBox1.Text = "首地址从0开始";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // textBox15
             // 
-            this.textBox15.Location = new System.Drawing.Point(404, 14);
+            this.textBox15.Location = new System.Drawing.Point(392, 14);
             this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(81, 23);
+            this.textBox15.Size = new System.Drawing.Size(39, 23);
             this.textBox15.TabIndex = 7;
             this.textBox15.Text = "1";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(350, 17);
+            this.label21.Location = new System.Drawing.Point(338, 17);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(44, 17);
             this.label21.TabIndex = 6;
@@ -462,6 +479,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "单数据写入测试";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(24, 187);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(184, 28);
+            this.button3.TabIndex = 23;
+            this.button3.Text = "压力测试，快速读写3000次";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button4_Click);
+            // 
             // label19
             // 
             this.label19.ForeColor = System.Drawing.Color.Red;
@@ -608,6 +635,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.textBox5);
             this.groupBox1.Controls.Add(this.button_read_string);
             this.groupBox1.Controls.Add(this.button_read_double);
@@ -630,6 +658,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "单数据读取测试";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(403, 19);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(94, 28);
+            this.button4.TabIndex = 19;
+            this.button4.Text = "离散输入读取";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
             // 
             // textBox5
             // 
@@ -832,27 +870,26 @@
             this.label20.TabIndex = 6;
             this.label20.Text = "作者：Richard Hu";
             // 
-            // checkBox1
+            // checkBox2
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(507, 16);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(106, 21);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "首地址从0开始";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(558, 16);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(111, 21);
+            this.checkBox2.TabIndex = 24;
+            this.checkBox2.Text = "数据高地位颠倒";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
-            // button3
+            // checkBox3
             // 
-            this.button3.Location = new System.Drawing.Point(24, 187);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(184, 28);
-            this.button3.TabIndex = 23;
-            this.button3.Text = "压力测试，快速读写3000次";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button4_Click);
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(675, 16);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(87, 21);
+            this.checkBox3.TabIndex = 25;
+            this.checkBox3.Text = "字符串颠倒";
+            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // FormModbus
             // 
@@ -965,5 +1002,8 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }

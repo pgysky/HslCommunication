@@ -35,6 +35,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button21 = new System.Windows.Forms.Button();
             this.button19 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -45,6 +46,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button22 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
@@ -56,16 +58,24 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button11 = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.button20 = new System.Windows.Forms.Button();
             this.button18 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.button23 = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.button24 = new System.Windows.Forms.Button();
+            this.button25 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -141,6 +151,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button21);
             this.groupBox2.Controls.Add(this.button19);
             this.groupBox2.Controls.Add(this.button6);
             this.groupBox2.Location = new System.Drawing.Point(425, 74);
@@ -151,6 +162,17 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Modbus";
+            // 
+            // button21
+            // 
+            this.button21.Location = new System.Drawing.Point(19, 104);
+            this.button21.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(150, 32);
+            this.button21.TabIndex = 2;
+            this.button21.Text = "Modbus Rtu";
+            this.button21.UseVisualStyleBackColor = true;
+            this.button21.Click += new System.EventHandler(this.button21_Click);
             // 
             // button19
             // 
@@ -255,6 +277,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.button22);
             this.groupBox4.Controls.Add(this.button15);
             this.groupBox4.Controls.Add(this.button14);
             this.groupBox4.Controls.Add(this.button12);
@@ -264,10 +287,21 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(183, 226);
+            this.groupBox4.Size = new System.Drawing.Size(183, 266);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Hsl Support";
+            // 
+            // button22
+            // 
+            this.button22.Location = new System.Drawing.Point(15, 224);
+            this.button22.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button22.Name = "button22";
+            this.button22.Size = new System.Drawing.Size(150, 32);
+            this.button22.TabIndex = 5;
+            this.button22.Text = "Push Net (消息推送)";
+            this.button22.UseVisualStyleBackColor = true;
+            this.button22.Click += new System.EventHandler(this.button22_Click);
             // 
             // button15
             // 
@@ -276,7 +310,7 @@
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(150, 32);
             this.button15.TabIndex = 4;
-            this.button15.Text = "Log 日志记录";
+            this.button15.Text = "Log (日志记录)";
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
@@ -287,7 +321,7 @@
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(150, 32);
             this.button14.TabIndex = 3;
-            this.button14.Text = "Complex Net";
+            this.button14.Text = "Complex (复杂交互)";
             this.button14.UseVisualStyleBackColor = true;
             this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
@@ -298,7 +332,7 @@
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(150, 32);
             this.button12.TabIndex = 2;
-            this.button12.Text = "File Net";
+            this.button12.Text = "File Net (文件收发)";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
@@ -309,7 +343,7 @@
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(150, 32);
             this.button9.TabIndex = 1;
-            this.button9.Text = "Udp Net";
+            this.button9.Text = "Udp Net (Udp数据)";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
@@ -320,7 +354,7 @@
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(150, 32);
             this.button8.TabIndex = 0;
-            this.button8.Text = "Simplify Net";
+            this.button8.Text = "Simplify Net (请求交互)";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
@@ -379,6 +413,7 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.button20);
             this.groupBox6.Controls.Add(this.button18);
             this.groupBox6.Controls.Add(this.button17);
             this.groupBox6.Controls.Add(this.button16);
@@ -386,10 +421,21 @@
             this.groupBox6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox6.Size = new System.Drawing.Size(185, 225);
+            this.groupBox6.Size = new System.Drawing.Size(185, 265);
             this.groupBox6.TabIndex = 12;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Controls";
+            // 
+            // button20
+            // 
+            this.button20.Location = new System.Drawing.Point(19, 143);
+            this.button20.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(150, 32);
+            this.button20.TabIndex = 3;
+            this.button20.Text = "Pie Chart (饼图)";
+            this.button20.UseVisualStyleBackColor = true;
+            this.button20.Click += new System.EventHandler(this.button20_Click);
             // 
             // button18
             // 
@@ -435,12 +481,72 @@
             this.label3.TabIndex = 13;
             this.label3.Text = "库版本：";
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.button23);
+            this.groupBox7.Location = new System.Drawing.Point(425, 308);
+            this.groupBox7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox7.Size = new System.Drawing.Size(185, 265);
+            this.groupBox7.TabIndex = 14;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Robot";
+            // 
+            // button23
+            // 
+            this.button23.Location = new System.Drawing.Point(19, 24);
+            this.button23.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(150, 32);
+            this.button23.TabIndex = 0;
+            this.button23.Text = "EFORT-ER7BC10";
+            this.button23.UseVisualStyleBackColor = true;
+            this.button23.Click += new System.EventHandler(this.button23_Click);
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.button25);
+            this.groupBox8.Controls.Add(this.button24);
+            this.groupBox8.Location = new System.Drawing.Point(631, 308);
+            this.groupBox8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox8.Size = new System.Drawing.Size(185, 265);
+            this.groupBox8.TabIndex = 15;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Others";
+            // 
+            // button24
+            // 
+            this.button24.Location = new System.Drawing.Point(19, 24);
+            this.button24.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(150, 32);
+            this.button24.TabIndex = 0;
+            this.button24.Text = "串口调试助手";
+            this.button24.UseVisualStyleBackColor = true;
+            this.button24.Click += new System.EventHandler(this.button24_Click);
+            // 
+            // button25
+            // 
+            this.button25.Location = new System.Drawing.Point(19, 64);
+            this.button25.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(150, 32);
+            this.button25.TabIndex = 1;
+            this.button25.Text = "傅立叶频谱变换";
+            this.button25.UseVisualStyleBackColor = true;
+            this.button25.Click += new System.EventHandler(this.button25_Click);
+            // 
             // FormLoad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
-            this.ClientSize = new System.Drawing.Size(839, 546);
+            this.ClientSize = new System.Drawing.Size(835, 586);
+            this.Controls.Add(this.groupBox8);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
@@ -466,6 +572,8 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -505,6 +613,14 @@
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Button button19;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button20;
+        private System.Windows.Forms.Button button21;
+        private System.Windows.Forms.Button button22;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Button button23;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Button button24;
+        private System.Windows.Forms.Button button25;
     }
 }
 

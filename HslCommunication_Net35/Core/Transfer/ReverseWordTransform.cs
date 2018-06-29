@@ -8,7 +8,7 @@ namespace HslCommunication.Core
     /// <summary>
     /// 按照字节错位的数据转换类
     /// </summary>
-    public class ReverseWordTransform : IByteTransform
+    public class ReverseWordTransform : ByteTransformBase
     {
 
         #region Private Method
@@ -16,11 +16,12 @@ namespace HslCommunication.Core
         /// <summary>
         /// 按照字节错位的方法
         /// </summary>
-        /// <param name="buffer"></param>
-        /// <param name="index"></param>
-        /// <param name="length"></param>
+        /// <param name="buffer">实际的字节数据</param>
+        /// <param name="index">起始字节位置</param>
+        /// <param name="length">数据长度</param>
+        /// <param name="isReverse">是否按照字来反转</param>
         /// <returns></returns>
-        private byte[] ReverseBytesByWord( byte[] buffer, int index, int length )
+        private byte[] ReverseBytesByWord( byte[] buffer, int index, int length, bool isReverse = false )
         {
             byte[] tmp = new byte[length];
 
@@ -36,54 +37,70 @@ namespace HslCommunication.Core
                 tmp[i * 2 + 1] = b;
             }
 
+            // 两两高地位互换
+            if(isReverse)
+            {
+                if(tmp.Length == 4)
+                {
+                    byte a = tmp[0];
+                    byte b = tmp[1];
+
+                    tmp[0] = tmp[2];
+                    tmp[1] = tmp[3];
+
+                    tmp[2] = a;
+                    tmp[3] = b;
+                }
+                else if(tmp.Length == 8)
+                {
+                    byte a = tmp[0];
+                    byte b = tmp[1];
+
+                    tmp[0] = tmp[6];
+                    tmp[1] = tmp[7];
+
+                    tmp[6] = a;
+                    tmp[7] = b;
+
+                    a = tmp[2];
+                    b = tmp[3];
+
+                    tmp[2] = tmp[4];
+                    tmp[3] = tmp[5];
+
+                    tmp[4] = a;
+                    tmp[5] = b;
+                }
+            }
+
             return tmp;
         }
 
-        private byte[] ReverseBytesByWord( byte[] buffer )
+        private byte[] ReverseBytesByWord( byte[] buffer , bool isReverse = false )
         {
-            return ReverseBytesByWord( buffer, 0, buffer.Length );
+            return ReverseBytesByWord( buffer, 0, buffer.Length , isReverse );
         }
+
+
+        #endregion
+
+        #region Public Properties
+        
+        /// <summary>
+        /// 多字节的数据是否高低位反转，常用于Int32,UInt32,float,double,Int64,UInt64类型读写
+        /// </summary>
+        public bool IsMultiWordReverse { get; set; }
+
+        /// <summary>
+        /// 字符串数据是否按照字来反转
+        /// </summary>
+        public bool IsStringReverse { get; set; }
 
 
         #endregion
 
         #region Get Value From Bytes
 
-        /// <summary>
-        /// 从缓存中提取出bool结果
-        /// </summary>
-        /// <param name="buffer">缓存数据</param>
-        /// <returns>bool对象</returns>
-        public bool TransBool( byte[] buffer )
-        {
-            return buffer[0] != 0x00;
-        }
-
-        /// <summary>
-        /// 从缓存中提取byte结果
-        /// </summary>
-        /// <param name="buffer">缓存数据</param>
-        /// <param name="index">索引位置</param>
-        /// <returns>byte对象</returns>
-        public byte TransByte( byte[] buffer, int index )
-        {
-            return buffer[index];
-        }
-
-
-        /// <summary>
-        /// 从缓存中提取byte数组结果
-        /// </summary>
-        /// <param name="buffer">缓存数据</param>
-        /// <param name="index">索引位置</param>
-        /// <param name="length">提取的数组长度</param>
-        /// <returns>byte对象</returns>
-        public byte[] TransByte( byte[] buffer, int index, int length )
-        {
-            byte[] tmp = new byte[length];
-            Array.Copy( buffer, index, tmp, 0, length );
-            return tmp;
-        }
 
         /// <summary>
         /// 从缓存中提取short结果
@@ -91,28 +108,11 @@ namespace HslCommunication.Core
         /// <param name="buffer">缓存数据</param>
         /// <param name="index">索引位置</param>
         /// <returns>short对象</returns>
-        public short TransInt16( byte[] buffer, int index )
+        public override short TransInt16( byte[] buffer, int index )
         {
             return BitConverter.ToInt16( ReverseBytesByWord( buffer, index, 2 ), 0 );
         }
 
-
-        /// <summary>
-        /// 从缓存中提取short数组结果
-        /// </summary>
-        /// <param name="buffer">缓存数据</param>
-        /// <param name="index">索引位置</param>
-        /// <param name="length">提取的数组长度</param>
-        /// <returns>short数组对象</returns>
-        public short[] TransInt16( byte[] buffer, int index, int length )
-        {
-            short[] tmp = new short[length];
-            for (int i = 0; i < length; i++)
-            {
-                tmp[i] = TransInt16( buffer, index + 2 * i );
-            }
-            return tmp;
-        }
 
 
         /// <summary>
@@ -121,26 +121,9 @@ namespace HslCommunication.Core
         /// <param name="buffer">缓存数据</param>
         /// <param name="index">索引位置</param>
         /// <returns>ushort对象</returns>
-        public ushort TransUInt16( byte[] buffer, int index )
+        public override ushort TransUInt16( byte[] buffer, int index )
         {
             return BitConverter.ToUInt16( ReverseBytesByWord( buffer, index, 2 ), 0 );
-        }
-
-        /// <summary>
-        /// 从缓存中提取ushort数组结果
-        /// </summary>
-        /// <param name="buffer">缓存数据</param>
-        /// <param name="index">索引位置</param>
-        /// <param name="length">提取的数组的长度</param>
-        /// <returns>ushort对象</returns>
-        public ushort[] TransUInt16( byte[] buffer, int index, int length )
-        {
-            ushort[] tmp = new ushort[length];
-            for (int i = 0; i < length; i++)
-            {
-                tmp[i] = TransUInt16( buffer, index + 2 * i );
-            }
-            return tmp;
         }
 
 
@@ -151,27 +134,9 @@ namespace HslCommunication.Core
         /// <param name="buffer">缓存数据</param>
         /// <param name="index">索引位置</param>
         /// <returns>int对象</returns>
-        public int TransInt32( byte[] buffer, int index )
+        public override int TransInt32( byte[] buffer, int index )
         {
-            return BitConverter.ToInt32( ReverseBytesByWord( buffer, index, 4 ), 0 );
-        }
-
-
-        /// <summary>
-        /// 从缓存中提取int数组结果
-        /// </summary>
-        /// <param name="buffer">缓存数据</param>
-        /// <param name="index">索引位置</param>
-        /// <param name="length">提取的数组的长度</param>
-        /// <returns>int数组对象</returns>
-        public int[] TransInt32( byte[] buffer, int index, int length )
-        {
-            int[] tmp = new int[length];
-            for (int i = 0; i < length; i++)
-            {
-                tmp[i] = TransInt32( buffer, index + 4 * i );
-            }
-            return tmp;
+            return BitConverter.ToInt32( ReverseBytesByWord( buffer, index, 4, IsMultiWordReverse ), 0 );
         }
 
 
@@ -181,26 +146,9 @@ namespace HslCommunication.Core
         /// <param name="buffer">缓存数据</param>
         /// <param name="index">索引位置</param>
         /// <returns>uint对象</returns>
-        public uint TransUInt32( byte[] buffer, int index )
+        public override uint TransUInt32( byte[] buffer, int index )
         {
-            return BitConverter.ToUInt32( ReverseBytesByWord( buffer, index, 4 ), 0 );
-        }
-
-        /// <summary>
-        /// 从缓存中提取uint数组结果
-        /// </summary>
-        /// <param name="buffer">缓存数据</param>
-        /// <param name="index">索引位置</param>
-        /// <param name="length">提取的数组的长度</param>
-        /// <returns>uint数组对象</returns>
-        public uint[] TransUInt32( byte[] buffer, int index, int length )
-        {
-            uint[] tmp = new uint[length];
-            for (int i = 0; i < length; i++)
-            {
-                tmp[i] = TransUInt32( buffer, index + 4 * i );
-            }
-            return tmp;
+            return BitConverter.ToUInt32( ReverseBytesByWord( buffer, index, 4, IsMultiWordReverse ), 0 );
         }
 
 
@@ -210,28 +158,11 @@ namespace HslCommunication.Core
         /// <param name="buffer">缓存数据</param>
         /// <param name="index">索引位置</param>
         /// <returns>long对象</returns>
-        public long TransInt64( byte[] buffer, int index )
+        public override long TransInt64( byte[] buffer, int index )
         {
-            return BitConverter.ToInt64( ReverseBytesByWord( buffer, index, 8 ), 0 );
+            return BitConverter.ToInt64( ReverseBytesByWord( buffer, index, 8, IsMultiWordReverse ), 0 );
         }
 
-
-        /// <summary>
-        /// 从缓存中提取long数组结果
-        /// </summary>
-        /// <param name="buffer">缓存数据</param>
-        /// <param name="index">索引位置</param>
-        /// <param name="length">提取的数组的长度</param>
-        /// <returns>long数组对象</returns>
-        public long[] TransInt64( byte[] buffer, int index, int length )
-        {
-            long[] tmp = new long[length];
-            for (int i = 0; i < length; i++)
-            {
-                tmp[i] = TransInt64( buffer, index + 8 * i );
-            }
-            return tmp;
-        }
 
 
         /// <summary>
@@ -240,30 +171,12 @@ namespace HslCommunication.Core
         /// <param name="buffer">缓存数据</param>
         /// <param name="index">索引位置</param>
         /// <returns>ulong对象</returns>
-        public ulong TransUInt64( byte[] buffer, int index )
+        public override ulong TransUInt64( byte[] buffer, int index )
         {
-            return BitConverter.ToUInt64( ReverseBytesByWord( buffer, index, 8 ), 0 );
+            return BitConverter.ToUInt64( ReverseBytesByWord( buffer, index, 8, IsMultiWordReverse ), 0 );
         }
 
 
-
-
-        /// <summary>
-        /// 从缓存中提取ulong数组结果
-        /// </summary>
-        /// <param name="buffer">缓存数据</param>
-        /// <param name="index">索引位置</param>
-        /// <param name="length">提取的数组的长度</param>
-        /// <returns>ulong数组对象</returns>
-        public ulong[] TransUInt64( byte[] buffer, int index, int length )
-        {
-            ulong[] tmp = new ulong[length];
-            for (int i = 0; i < length; i++)
-            {
-                tmp[i] = TransUInt64( buffer, index + 8 * i );
-            }
-            return tmp;
-        }
 
 
         /// <summary>
@@ -272,28 +185,11 @@ namespace HslCommunication.Core
         /// <param name="buffer">缓存对象</param>
         /// <param name="index">索引位置</param>
         /// <returns>float对象</returns>
-        public float TransSingle( byte[] buffer, int index )
+        public override float TransSingle( byte[] buffer, int index )
         {
-            return BitConverter.ToSingle( ReverseBytesByWord( buffer, index, 4 ), 0 );
+            return BitConverter.ToSingle( ReverseBytesByWord( buffer, index, 4, IsMultiWordReverse ), 0 );
         }
 
-
-        /// <summary>
-        /// 从缓存中提取float数组结果
-        /// </summary>
-        /// <param name="buffer">缓存数据</param>
-        /// <param name="index">索引位置</param>
-        /// <param name="length">提取的数组的长度</param>
-        /// <returns>float数组对象</returns>
-        public float[] TransSingle( byte[] buffer, int index, int length )
-        {
-            float[] tmp = new float[length];
-            for (int i = 0; i < length; i++)
-            {
-                tmp[i] = TransSingle( buffer, index + 4 * i );
-            }
-            return tmp;
-        }
 
 
         /// <summary>
@@ -302,88 +198,58 @@ namespace HslCommunication.Core
         /// <param name="buffer">缓存对象</param>
         /// <param name="index">索引位置</param>
         /// <returns>double对象</returns>
-        public double TransDouble( byte[] buffer, int index )
+        public override double TransDouble( byte[] buffer, int index )
         {
-            return BitConverter.ToDouble( ReverseBytesByWord( buffer, index, 8 ), 0 );
+            return BitConverter.ToDouble( ReverseBytesByWord( buffer, index, 8, IsMultiWordReverse ), 0 );
         }
+        
+
+        
 
         /// <summary>
-        /// 从缓存中提取double数组结果
-        /// </summary>
-        /// <param name="buffer">缓存数据</param>
-        /// <param name="index">索引位置</param>
-        /// <param name="length">提取的数组的长度</param>
-        /// <returns>double数组对象</returns>
-        public double[] TransDouble( byte[] buffer, int index, int length )
-        {
-            double[] tmp = new double[length];
-            for (int i = 0; i < length; i++)
-            {
-                tmp[i] = TransDouble( buffer, index + 4 * i );
-            }
-            return tmp;
-        }
-
-        /// <summary>
-        /// 从缓存中提取string结果，编码ASCII
+        /// 从缓存中提取string结果，使用指定的编码
         /// </summary>
         /// <param name="buffer">缓存对象</param>
+        /// <param name="index">索引位置</param>
+        /// <param name="length">byte数组长度</param>
+        /// <param name="encoding">字符串的编码</param>
         /// <returns>string对象</returns>
-        public string TransString( byte[] buffer )
+        public override string TransString( byte[] buffer, int index, int length, Encoding encoding )
         {
-            // 大小端进行转化一下
-            return Encoding.ASCII.GetString( ReverseBytesByWord( buffer ) );
-        }
+            byte[] tmp = TransByte( buffer, index, length );
 
+            if(IsStringReverse)
+            {
+                return encoding.GetString( ReverseBytesByWord( tmp, false ) );
+            }
+            else
+            {
+                return encoding.GetString( tmp );
+            }
+        }
 
         #endregion
-        
+
         #region Get Bytes From Value
-
-
-        /// <summary>
-        /// bool变量转化缓存数据
-        /// </summary>
-        /// <param name="value">等待转化的数据</param>
-        /// <returns>buffer数据</returns>
-        public byte[] TransByte( bool value )
-        {
-            return value ? new byte[1] { 0x01 } : new byte[1] { 0x00 };
-        }
+        
         /// <summary>
         /// bool数组变量转化缓存数据
         /// </summary>
         /// <param name="values">等待转化的数组</param>
         /// <returns>buffer数据</returns>
-        public byte[] TransByte( bool[] values )
+        public override byte[] TransByte( bool[] values )
         {
             return BasicFramework.SoftBasic.BoolArrayToByte( values );
         }
 
-        /// <summary>
-        /// byte变量转化缓存数据
-        /// </summary>
-        /// <param name="value">等待转化的数据</param>
-        /// <returns>buffer数据</returns>
-        public byte[] TransByte( byte value )
-        {
-            return new byte[1] { value };
-        }
-        /// <summary>
-        /// short变量转化缓存数据
-        /// </summary>
-        /// <param name="value">等待转化的数据</param>
-        /// <returns>buffer数据</returns>
-        public byte[] TransByte( short value )
-        {
-            return TransByte( new short[] { value } );
-        }
+
+
         /// <summary>
         /// short数组变量转化缓存数据
         /// </summary>
         /// <param name="values">等待转化的数组</param>
         /// <returns>buffer数据</returns>
-        public byte[] TransByte( short[] values )
+        public override byte[] TransByte( short[] values )
         {
             if (values == null) return null;
 
@@ -396,21 +262,14 @@ namespace HslCommunication.Core
 
             return ReverseBytesByWord( buffer );
         }
-        /// <summary>
-        /// ushort变量转化缓存数据
-        /// </summary>
-        /// <param name="value">等待转化的数据</param>
-        /// <returns>buffer数据</returns>
-        public byte[] TransByte( ushort value )
-        {
-            return TransByte( new ushort[] { value } );
-        }
+
+
         /// <summary>
         /// ushort数组变量转化缓存数据
         /// </summary>
         /// <param name="values">等待转化的数组</param>
         /// <returns>buffer数据</returns>
-        public byte[] TransByte( ushort[] values )
+        public override byte[] TransByte( ushort[] values )
         {
             if (values == null) return null;
 
@@ -423,21 +282,15 @@ namespace HslCommunication.Core
 
             return ReverseBytesByWord( buffer );
         }
-        /// <summary>
-        /// int变量转化缓存数据
-        /// </summary>
-        /// <param name="value">等待转化的数据</param>
-        /// <returns>buffer数据</returns>
-        public byte[] TransByte( int value )
-        {
-            return TransByte( new int[] { value } );
-        }
+
+
+
         /// <summary>
         /// int数组变量转化缓存数据
         /// </summary>
         /// <param name="values">等待转化的数组</param>
         /// <returns>buffer数据</returns>
-        public byte[] TransByte( int[] values )
+        public override byte[] TransByte( int[] values )
         {
             if (values == null) return null;
 
@@ -447,23 +300,16 @@ namespace HslCommunication.Core
                 BitConverter.GetBytes( values[i] ).CopyTo( buffer, 4 * i );
             }
 
-            return ReverseBytesByWord( buffer );
+            return ReverseBytesByWord( buffer, IsMultiWordReverse );
         }
-        /// <summary>
-        /// uint变量转化缓存数据
-        /// </summary>
-        /// <param name="value">等待转化的数据</param>
-        /// <returns>buffer数据</returns>
-        public byte[] TransByte( uint value )
-        {
-            return TransByte( new uint[] { value } );
-        }
+
+
         /// <summary>
         /// uint数组变量转化缓存数据
         /// </summary>
         /// <param name="values">等待转化的数组</param>
         /// <returns>buffer数据</returns>
-        public byte[] TransByte( uint[] values )
+        public override byte[] TransByte( uint[] values )
         {
             if (values == null) return null;
 
@@ -473,23 +319,16 @@ namespace HslCommunication.Core
                 BitConverter.GetBytes( values[i] ).CopyTo( buffer, 4 * i );
             }
 
-            return ReverseBytesByWord( buffer );
+            return ReverseBytesByWord( buffer, IsMultiWordReverse );
         }
-        /// <summary>
-        /// long变量转化缓存数据
-        /// </summary>
-        /// <param name="value">等待转化的数据</param>
-        /// <returns>buffer数据</returns>
-        public byte[] TransByte( long value )
-        {
-            return TransByte( new long[] { value } );
-        }
+
+
         /// <summary>
         /// long数组变量转化缓存数据
         /// </summary>
         /// <param name="values">等待转化的数组</param>
         /// <returns>buffer数据</returns>
-        public byte[] TransByte( long[] values )
+        public override byte[] TransByte( long[] values )
         {
             if (values == null) return null;
 
@@ -499,23 +338,15 @@ namespace HslCommunication.Core
                 BitConverter.GetBytes( values[i] ).CopyTo( buffer, 8 * i );
             }
 
-            return ReverseBytesByWord( buffer );
+            return ReverseBytesByWord( buffer, IsMultiWordReverse );
         }
-        /// <summary>
-        /// ulong变量转化缓存数据
-        /// </summary>
-        /// <param name="value">等待转化的数据</param>
-        /// <returns>buffer数据</returns>
-        public byte[] TransByte( ulong value )
-        {
-            return TransByte( new ulong[] { value } );
-        }
+
         /// <summary>
         /// ulong数组变量转化缓存数据
         /// </summary>
         /// <param name="values">等待转化的数组</param>
         /// <returns>buffer数据</returns>
-        public byte[] TransByte( ulong[] values )
+        public override byte[] TransByte( ulong[] values )
         {
             if (values == null) return null;
 
@@ -525,23 +356,16 @@ namespace HslCommunication.Core
                 BitConverter.GetBytes( values[i] ).CopyTo( buffer, 8 * i );
             }
 
-            return ReverseBytesByWord( buffer );
+            return ReverseBytesByWord( buffer, IsMultiWordReverse );
         }
-        /// <summary>
-        /// float变量转化缓存数据
-        /// </summary>
-        /// <param name="value">等待转化的数据</param>
-        /// <returns>buffer数据</returns>
-        public byte[] TransByte( float value )
-        {
-            return TransByte( new float[] { value } );
-        }
+
+
         /// <summary>
         /// float数组变量转化缓存数据
         /// </summary>
         /// <param name="values">等待转化的数组</param>
         /// <returns>buffer数据</returns>
-        public byte[] TransByte( float[] values )
+        public override byte[] TransByte( float[] values )
         {
             if (values == null) return null;
 
@@ -551,23 +375,15 @@ namespace HslCommunication.Core
                 BitConverter.GetBytes( values[i] ).CopyTo( buffer, 4 * i );
             }
 
-            return ReverseBytesByWord( buffer );
+            return ReverseBytesByWord( buffer, IsMultiWordReverse );
         }
-        /// <summary>
-        /// double变量转化缓存数据
-        /// </summary>
-        /// <param name="value">等待转化的数据</param>
-        /// <returns>buffer数据</returns>
-        public byte[] TransByte( double value )
-        {
-            return TransByte( new double[] { value } );
-        }
+
         /// <summary>
         /// double数组变量转化缓存数据
         /// </summary>
         /// <param name="values">等待转化的数组</param>
         /// <returns>buffer数据</returns>
-        public byte[] TransByte( double[] values )
+        public override byte[] TransByte( double[] values )
         {
             if (values == null) return null;
 
@@ -577,21 +393,30 @@ namespace HslCommunication.Core
                 BitConverter.GetBytes( values[i] ).CopyTo( buffer, 8 * i );
             }
 
-            return ReverseBytesByWord( buffer );
+            return ReverseBytesByWord( buffer, IsMultiWordReverse );
         }
+        
+
         /// <summary>
-        /// ASCII编码字符串转化缓存数据
+        /// 使用指定的编码字符串转化缓存数据
         /// </summary>
         /// <param name="value">等待转化的数据</param>
+        /// <param name="encoding">字符串的编码方式</param>
         /// <returns>buffer数据</returns>
-        public byte[] TransByte( string value )
+        public override byte[] TransByte( string value, Encoding encoding )
         {
-            // return Encoding.ASCII.GetBytes( value );
-            byte[] buffer = Encoding.ASCII.GetBytes( value );
+            if (value == null) return null;
+            byte[] buffer = encoding.GetBytes( value );
             buffer = BasicFramework.SoftBasic.ArrayExpandToLengthEven( buffer );
-            return ReverseBytesByWord( buffer );
+            if (IsStringReverse)
+            {
+                return ReverseBytesByWord( buffer, false );
+            }
+            else
+            {
+                return buffer;
+            }
         }
-
 
         #endregion
 

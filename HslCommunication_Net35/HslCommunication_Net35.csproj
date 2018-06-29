@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\ConnectPool\ConnectPool.cs" />
+    <Compile Include="Algorithms\ConnectPool\IConnector.cs" />
+    <Compile Include="Algorithms\Fourier\FFTHelper.cs" />
     <Compile Include="BasicFramework\FormPortraitSelect.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,7 +128,9 @@
     <Compile Include="Controls\UserVerticalProgress.Designer.cs">
       <DependentUpon>UserVerticalProgress.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Address\DeviceAddressBase.cs" />
     <Compile Include="Core\IMessage\AlienMessage.cs" />
+    <Compile Include="Core\IMessage\EFORTMessage.cs" />
     <Compile Include="Core\IMessage\FetchWriteMessage.cs" />
     <Compile Include="Core\IMessage\FinsMessage.cs" />
     <Compile Include="Core\IMessage\HslMessage.cs" />
@@ -152,6 +157,7 @@
     <Compile Include="Core\Net\IReadWriteNet.cs" />
     <Compile Include="Core\Net\NetworkBase\NetworkAlienClient.cs" />
     <Compile Include="Core\Net\NetworkBase\NetworkBase.cs" />
+    <Compile Include="Core\Net\NetworkBase\NetworkDeviceBase.cs" />
     <Compile Include="Core\Net\NetworkBase\NetworkFileServerBase.cs" />
     <Compile Include="Core\Net\NetworkBase\NetworkServerBase.cs" />
     <Compile Include="Core\Net\StateOne\AlienSession.cs" />
@@ -163,6 +169,8 @@
     <Compile Include="Core\Net\NetworkBase\NetworkXBase.cs" />
     <Compile Include="Core\Net\StateOne\StateOneBase.cs" />
     <Compile Include="Core\Thread\ThreadLock.cs" />
+    <Compile Include="Core\Transfer\ByteTransformBase.cs" />
+    <Compile Include="Core\Transfer\ByteTransformHelper.cs" />
     <Compile Include="Core\Transfer\IByteTransform.cs" />
     <Compile Include="Core\Transfer\RegularByteTransform.cs" />
     <Compile Include="Core\Transfer\ReverseBytesTransform.cs" />
@@ -177,6 +185,9 @@
     <Compile Include="Enthernet\FileNet\GroupFileItem.cs" />
     <Compile Include="Enthernet\FileNet\IntegrationFileClient.cs" />
     <Compile Include="Enthernet\FileNet\UltimateFileServer.cs" />
+    <Compile Include="Enthernet\PushNet\NetPushClient.cs" />
+    <Compile Include="Enthernet\PushNet\NetPushServer.cs" />
+    <Compile Include="Enthernet\PushNet\PushGroupClient.cs" />
     <Compile Include="Enthernet\SoftUpdateNet\ClassSoftUpdate.cs" />
     <Compile Include="Enthernet\ComplexNet\NetComplexClient.cs" />
     <Compile Include="Enthernet\ComplexNet\NetComplexServer.cs" />
@@ -207,8 +218,10 @@
     <Compile Include="LogNet\Logs\LogNetSingle.cs" />
     <Compile Include="Core\Net\NetSupport.cs" />
     <Compile Include="Core\Types\OperateResult.cs" />
+    <Compile Include="ModBus\ModbusAddress.cs" />
     <Compile Include="ModBus\ModbusInfo.cs" />
     <Compile Include="ModBus\ModBusMonitorAddress.cs" />
+    <Compile Include="ModBus\ModbusRtu\ModbusRtu.cs" />
     <Compile Include="ModBus\ModBusState.cs" />
     <Compile Include="ModBus\ModbusTcp\ModbusTcpNet.cs" />
     <Compile Include="Core\Types\IDataTransfer.cs" />
@@ -233,6 +246,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Core\Security\Security.cs" />
+    <Compile Include="Robot\EFORT\EfortData.cs" />
+    <Compile Include="Robot\EFORT\ER7BC10.cs" />
     <Compile Include="Serial\CRCSupport.cs" />
     <Compile Include="Serial\SerialCommunicationBase.cs" />
     <Compile Include="StringResources.cs" />
@@ -400,13 +415,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Doc.txt" />
+    <None Include="mm_facetoface_collect_qrcode_1525331158525.png" />
     <None Include="imgaes\alipay.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgaes\abstr11.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ModBus\ModbusRtu\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
